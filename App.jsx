@@ -111,6 +111,10 @@ Compose = React.createClass({
     },
 
     Acknowledge : function () {
+        k=(k+1)%2;
+        Sent_Mail_To[k]=this.TO.value;
+        Sent_Mail_Subject[k]=this.Subject.value;
+        Sent_Mail_Body[k]=this.Body.value;
         this.setState(
             {s : 1 }
         )
@@ -127,15 +131,15 @@ Compose = React.createClass({
 
             <div>
                 To:
-                <input type="text">
+                <input type="text" ref={input => this.TO =input}>
                 </input>
                 <br></br>
                  Subject:
-                 <input type="text">
+                 <input type="text" ref={input => this.Subject =input}>
                  </input>
                  <br></br>
                 Body:
-                <input type="text">
+                <input type="text" ref={input => this.Body =input}>
                 </input>
                 <br></br>
                 <button onClick={this.Acknowledge}>Send</button>
