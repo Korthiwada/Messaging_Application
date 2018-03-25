@@ -244,8 +244,73 @@ SideNav = React.createClass({
 
 });
 
+var Login;
+Login = React.createClass({
+    getInitialState : function () {
+        return{
+            Login_status : 0
+        }
+    },
+    Verify : function () {
+var User_Name = this.Username.value;
+var Password = this.Passwrd.value;
+if(User_Name == '' || Password == '')
+{
+    this.setState(
+        {Login_status : 1 }
+    )
+}
+else {
+    this.setState(
+        {Login_status : 2 }
+    )
+}
+    },
+    render: function () {
+        switch (this.state.Login_status) {
+            case 0 :
+                return (
+                    <ul>
+                        User Name:
+                        <input type="text" ref={input => this.Username = input}>
+                        </input>
+                        <br/>
+                        Password:
+                        <input type="password" ref={input => this.Passwrd = input}>
+                        </input>
+                        <br/>
+                        <button onClick={this.Verify}>Login</button>
+                    </ul>
+                )
+                break;
+            case 1 :
+                return (
+                    <ul>
+                        User Name:
+                        <input type="text" ref={input => this.Username = input}>
+                        </input>
+                        <br/>
+                        Password:
+                        <input type="password" ref={input => this.Passwrd = input}>
+                        </input>
+                       <br/>
+                        <button onClick={this.Verify}>Login</button>
+                        <h5>Invalid Credentials</h5>
+                    </ul>
+                )
+                break;
+            case 2 :
+                return (
+                    <ul>
+                        <SideNav/>
+                    </ul>
+                )
+                break;
+        }
+    }
+    });
 
 ReactDOM.render(
-    <SideNav/>,
+    <Login/>,
     document.getElementById('container')
 );
