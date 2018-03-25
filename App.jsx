@@ -2,9 +2,9 @@ var Recieved_Mail_From = ["Rahul" , "Ganesh"];
 var Recieved_Mail_Subject = ["Good Morning" , "Bless You"];
 var Recieved_Mail_Body = ["Hi I am there .Where were you?" , "Bless You My Child"];
 
-var Sent_Mail_To = ["Ra" , "Ga"];
-var Sent_Mail_Subject = ["Good Morning" , "Bless You"];
-var Sent_Mail_Body = ["Hi I am there .Where were you?" , "Thank You God"];
+var Sent_Mail_To = ["Ravi" , "Gagan" , "Mani"];
+var Sent_Mail_Subject = ["Good Morning" , "Bless You" , "General"];
+var Sent_Mail_Body = ["Hi I am there .Where were you?" , "Thank You God" , "How are you my dear?"];
 var k =0;
 
 var SMessage;
@@ -37,8 +37,9 @@ SMessage = React.createClass({
                 break;
             case true :
                 return(
-                    <form onClick={this.BodyNDisplay}><li>{Sent_Mail_To[this.props.id]}
-                        --{Sent_Mail_Subject[this.props.id]}</li> <br/> <p>{Sent_Mail_Body[this.props.id]}</p></form>
+                    <form onClick={this.BodyNDisplay}>
+                        <li>To : {Sent_Mail_To[this.props.id]} </li>
+                        <li>Subject : {Sent_Mail_Subject[this.props.id]}</li> <p>{Sent_Mail_Body[this.props.id]}</p></form>
                 );
                 break;
         }
@@ -72,14 +73,16 @@ IMessage = React.createClass({
         switch (this.state.stat) {
             case false :
                 return(
-            <li onClick={this.BodyDisplay}>{Recieved_Mail_From[this.props.id]}
-            --{Recieved_Mail_Subject[this.props.id]}</li>
+            <form onClick={this.BodyDisplay}>{Recieved_Mail_From[this.props.id]}
+            --{Recieved_Mail_Subject[this.props.id]}</form>
         );
         break;
             case true :
                 return(
-                <ul onClick={this.BodyNDisplay}><li>{Recieved_Mail_From[this.props.id]}
-                    --{Recieved_Mail_Subject[this.props.id]}</li> <br/> <p>{Recieved_Mail_Body[this.props.id]}</p></ul>
+                <form onClick={this.BodyNDisplay}>
+                    <li>From : {Recieved_Mail_From[this.props.id]}
+                </li>
+                    <li>Subject : {Recieved_Mail_Subject[this.props.id]}</li> <p>{Recieved_Mail_Body[this.props.id]}</p></form>
         );
                 break;
             }
@@ -92,9 +95,11 @@ Inbox = React.createClass({
             return (
                 <div>
                     <ul>
-                        <h2>Messages</h2>
-                        <IMessage id="0"/>
-                        <IMessage id="1"/>
+                        <h4>Inbox</h4>
+                        <li><IMessage id="0"/></li>
+                        <br/>
+                        <br/>
+                        <li><IMessage id="1"/></li>
                     </ul>
                 </div>
             );
@@ -111,7 +116,7 @@ Compose = React.createClass({
     },
 
     Acknowledge : function () {
-        k=(k+1)%2;
+        k=(k+1)%3;
         Sent_Mail_To[k]=this.TO.value;
         Sent_Mail_Subject[k]=this.Subject.value;
         Sent_Mail_Body[k]=this.Body.value;
@@ -165,15 +170,21 @@ var Sent;
 Sent = React.createClass({
     render: function (){
         return (
-
-            <div>
-                <ul>
-                    <h2>Messages</h2>
-                    <SMessage id={k%2} />
-                    <SMessage id={(k+1)%2}/>
-                </ul>
-            </div>
-
+            <div class = "container">
+                <div class = "row">
+                    <h4>Sent Mail</h4>
+                    <div class="col s4">
+                        <li><SMessage id={k%3} /></li>
+                    </div>
+                    <br/><br/>
+                    <div class="col s4">
+                        <li><SMessage id={(k+1)%3}/></li>
+                    </div>
+                    <br/><br/>
+                    <div class="col s4">
+                        <li><SMessage id={(k+2)%3}/></li>
+                    </div>
+                </div></div>
         );
     }
 });
@@ -211,32 +222,43 @@ SideNav = React.createClass({
         switch (this.state.status) {
             case 0 :
                 return (
-                    <ul>
-                        <button onClick={this.State_Compose}>Compose</button>
-                        <li onClick={this.State_Inbox}>Inbox</li>
-                        <li><a onClick={this.State_Sent}>Sent Mail {this.state.status}</a></li>
-                        <Compose/>
-                    </ul>
+                    <form>
+                        <br/><br/>
+                    <nav>
+                        <ul><li><a onClick={this.State_Compose}>Compose</a></li>
+                        <li><a onClick={this.State_Inbox}>Inbox</a></li>
+                        <li><a onClick={this.State_Sent}>Sent Mail</a></li>
+                        </ul>
+                    </nav>
+                    <Compose/>
+                    </form>
                 )
                 break;
             case 1 :
                 return (
-                    <ul>
-                        <button onClick={this.State_Compose}>Compose</button>
-                        <li onClick={this.State_Inbox}>Inbox</li>
-                        <li><a onClick={this.State_Sent}>Sent Mail {this.state.status}</a></li>
-                        <Inbox/>
-                    </ul>
+                    <form >
+                        <br/><br/>
+                    <nav>
+                        <ul> <li><a onClick={this.State_Compose}>Compose</a></li>
+                        <li><a onClick={this.State_Inbox}>Inbox</a></li>
+                        <li><a onClick={this.State_Sent}>Sent Mail</a></li>
+                            </ul>
+                    </nav>
+                    <Inbox/>
+                    </form>
                 )
                 break;
             case 2 :
                 return (
-                    <ul>
-                        <button onClick={this.State_Compose}>Compose</button>
-                        <li onClick={this.State_Inbox}>Inbox</li>
-                        <li><a onClick={this.State_Sent}>Sent Mail {this.state.status}</a></li>
-                    <Sent/>
-                    </ul>
+                    <form>
+                        <br/><br/>
+                    <nav>
+                        <ul> <li><a onClick={this.State_Compose}>Compose</a></li>
+                            <li><a onClick={this.State_Inbox}>Inbox</a></li>
+                            <li><a onClick={this.State_Sent}>Sent Mail</a></li>
+                        </ul></nav>
+                            <Sent/>
+                    </form>
                 )
                 break;
         }
@@ -270,17 +292,20 @@ else {
         switch (this.state.Login_status) {
             case 0 :
                 return (
-                    <ul>
-                        User Name:
-                        <input type="text" ref={input => this.Username = input}>
+                    <form class="col s4">
+                        <br/><br/><br/>
+                        <div class="row">
+                        <div class="input-field col s4">
+                        <input type="text" placeholder="User Name" class = "validate" width= "30px" ref={input => this.Username = input}>
                         </input>
                         <br/>
-                        Password:
-                        <input type="password" ref={input => this.Passwrd = input}>
+                        <input type="password" placeholder="Password" class = "validate" width= "20px" ref={input => this.Passwrd = input}>
                         </input>
                         <br/>
-                        <button onClick={this.Verify}>Login</button>
-                    </ul>
+                            </div>
+                        </div>
+                        <button class="btn waves-effect waves-light" type = "submit" onClick={this.Verify}>Login</button>
+                    </form>
                 )
                 break;
             case 1 :
